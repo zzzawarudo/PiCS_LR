@@ -1,0 +1,4 @@
+method,kps_ref,kps_tgt,good_matches,inliers,inlier_ratio,drift_px,status
+SIFT,249,234,154,116,0.753,19.26111602783203,ok
+ORB,735,667,358,333,0.930,18.763586044311523,ok
+AKAZE,116,107,75,71,0.947,18.641544342041016,ok

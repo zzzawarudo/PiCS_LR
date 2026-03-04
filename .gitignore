@@ -1,7 +1,4 @@
 .venv/
 __pycache__/
 *.pyc
-outputs/
-video/*.mp4
-.DS_Store
 .vscode/
