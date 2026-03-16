@@ -31,10 +31,7 @@ def compute_frame_indices(cap: cv2.VideoCapture, ref_sec: float, tgt_sec_from_en
 
 
 def select_point_on_frame(frame: np.ndarray, win_name: str = "Select point"):
-    """
-    Клик левой кнопкой мыши — выбрать точку.
-    ESC — выйти (вернёт None).
-    """
+
     chosen = {"pt": None}
 
     def on_mouse(event, x, y, flags, param):

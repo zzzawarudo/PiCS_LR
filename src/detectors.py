@@ -38,10 +38,7 @@ def available_methods():
 
 
 def detect_in_roi(method: Method, gray: np.ndarray, roi):
-    """
-    Ищем keypoints+descriptors только в ROI.
-    Возвращаем keypoints в координатах полного кадра (offset добавляем).
-    """
+
     x1, y1, x2, y2 = roi
     roi_img = gray[y1:y2, x1:x2]
     if roi_img.size == 0:
@@ -67,9 +64,7 @@ def detect_in_roi(method: Method, gray: np.ndarray, roi):
 
 
 def match_descriptors(method: Method, desc1, desc2, ratio: float = 0.75):
-    """
-    KNN + ratio test. Для бинарных и float дескрипторов одинаково работает.
-    """
+
     if desc1 is None or desc2 is None:
         return []
 

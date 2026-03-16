@@ -15,9 +15,7 @@ def clamp(val: int, lo: int, hi: int) -> int:
 
 
 def get_frame_at_index(cap: cv2.VideoCapture, frame_idx: int):
-    """
-    Надёжное чтение кадра по индексу.
-    """
+
     cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
     i = 0
     while True:
@@ -30,9 +28,7 @@ def get_frame_at_index(cap: cv2.VideoCapture, frame_idx: int):
 
 
 def select_point_on_frame(frame: np.ndarray, win_name: str = "Select point"):
-    """
-    ЛКМ = выбрать точку, Enter = подтвердить, ESC = отмена.
-    """
+
     chosen = {"pt": None}
 
     def on_mouse(event, x, y, flags, param):
@@ -89,18 +85,14 @@ def make_roi(center_xy, radius, w, h):
 
 
 def centroid(points: np.ndarray):
-    """
-    points: shape (N, 2)
-    """
+
     if points is None or len(points) == 0:
         return None
     return points.mean(axis=0)
 
 
 def mean_dist_to_centroid(points: np.ndarray):
-    """
-    Средняя дистанция точек до их центроида.
-    """
+
     if points is None or len(points) == 0:
         return None
     c = centroid(points)
@@ -109,9 +101,7 @@ def mean_dist_to_centroid(points: np.ndarray):
 
 
 def std_dist_to_centroid(points: np.ndarray):
-    """
-    Стандартное отклонение дистанций до центроида.
-    """
+
     if points is None or len(points) == 0:
         return None
     c = centroid(points)
@@ -120,10 +110,7 @@ def std_dist_to_centroid(points: np.ndarray):
 
 
 def estimate_homography(matches, kps_ref, kps_cur):
-    """
-    Считает гомографию ref -> current по good matches.
-    Возвращает H, mask, ref_pts, cur_pts.
-    """
+
     if len(matches) < 4:
         return None, None, None, None
 
@@ -139,10 +126,7 @@ def estimate_homography(matches, kps_ref, kps_cur):
 
 
 def warp_points(points: np.ndarray, H: np.ndarray):
-    """
-    Переносит точки через гомографию.
-    points shape = (N, 2)
-    """
+
     pts = points.reshape(-1, 1, 2).astype(np.float32)
     warped = cv2.perspectiveTransform(pts, H)
     return warped.reshape(-1, 2)
@@ -399,8 +383,6 @@ def main():
             shape_drift_abs = abs(mean_dist_warped - mean_dist_ref)
             shape_drift_rel = shape_drift_abs / mean_dist_ref if mean_dist_ref and mean_dist_ref > 1e-8 else None
 
-            # Средняя ошибка после обратного варпа:
-            # насколько точки "вернулись" туда, где были в reference
             reproj_error = np.linalg.norm(cur_warped_to_ref - inlier_ref, axis=1).mean()
 
             inliers_count = int(inlier_mask.sum())
